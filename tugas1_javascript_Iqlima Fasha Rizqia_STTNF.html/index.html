@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas1 JS- Menghitung Luas Bangun Datar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px gray;
+            background-color: #f9f9f9;
+        }
+        hr {
+            border: 1px dashed black;
+            width: 80%;
+        }
+        .hasil {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🔢 Menghitung Luas Bangun Datar 🔢</h2>
+    <hr>
+
+    <div class="container">
+        <h3>📏 Luas Persegi Panjang</h3>
+        <script>
+            // Fungsi untuk menghitung luas persegi panjang
+            function luasPersegiPanjang(panjang, lebar) {
+                return panjang * lebar + " cm²";
+            }
+
+            let panjang = 12, lebar = 6;
+            document.write("<p>Panjang: " + panjang + " cm</p>");
+            document.write("<p>Lebar: " + lebar + " cm</p>");
+            document.write("<p class='hasil'>Luas: " + luasPersegiPanjang(panjang, lebar) + "</p>");
+        </script>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <h3>🟦 Luas Bujur Sangkar</h3>
+        <script>
+            // Fungsi untuk menghitung luas bujur sangkar
+            function luasBujurSangkar(sisi) {
+                return sisi * sisi + " cm²";
+            }
+    
+            let sisi = 8;
+            document.write("<p>Sisi: " + sisi + " cm</p>");
+            document.write("<p class='hasil'>Luas: <b>" + luasBujurSangkar(sisi) + "</b></p>");
+        </script>
+    </div>
+    
+    <hr>
+
+    <div class="container">
+        <h3>🔺 Luas Segitiga</h3>
+        <script>
+            // Fungsi untuk menghitung luas segitiga
+            function luasSegitiga(alas, tinggi) {
+                return (alas * tinggi) / 2 + " cm²";
+            }
+
+            let alas = 10, tinggi = 5;
+            document.write("<p>Alas: " + alas + " cm</p>");
+            document.write("<p>Tinggi: " + tinggi + " cm</p>");
+            document.write("<p class='hasil'>Luas: " + luasSegitiga(alas, tinggi) + "</p>");
+        </script>
+    </div>
+
+    <hr>
+    <p><b>Catatan:</b> Nilai panjang, lebar, sisi, alas, dan tinggi bisa diubah langsung di dalam kode.</p>
+
+</body>
+</html>
