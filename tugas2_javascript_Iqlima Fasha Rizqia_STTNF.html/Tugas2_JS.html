@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 2 -JS- Cetak Data Pegawai berbentuk tabel</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #deeef8;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Data Pegawai</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Pegawai</th>
+                <th>Umur</th>
+                <th>Jabatan</th>
+                <th>Status</th>
+                <th>Gaji Pokok</th>
+                <th>Tunjangan Jabatan</th>
+                <th>BPJS</th>
+                <th>Tunjangan Keluarga</th>
+                <th>Total Gaji</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="nama"></td>
+                <td id="umur"></td>
+                <td id="jabatan"></td>
+                <td id="status"></td>
+                <td id="gapok"></td>
+                <td id="tunjanganJabatan"></td>
+                <td id="bpjs"></td>
+                <td id="tunjanganKeluarga"></td>
+                <td id="totalGaji"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="8">Total Gaji</th>
+                <th id="totalFooter"></th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        // Format Rupiah
+        function formatRupiah(angka) {
+            return "Rp " + angka.toLocaleString("id-ID") + ",-";
+        }
+
+        // Data Pegawai
+        let pegawai = "Dodi Prayodi";
+        let umur = 25;
+        let jabatan = "Manajer";
+        let status = "Menikah";
+        
+        // Gaji Pokok berdasarkan jabatan (if)
+        let gajiPokok;
+        if (jabatan === "Manajer") {
+            gajiPokok = 15000000;
+        } else if (jabatan === "Asisten Manajer") {
+            gajiPokok = 10000000;
+        } else if (jabatan === "Staff") {
+            gajiPokok = 5000000;
+        } else {
+            gajiPokok = 0; // Jika jabatan tidak dikenali
+        }
+
+        // Perhitungan tunjangan
+        let tunjanganJabatan = 0.15 * gajiPokok;
+        let bpjs = 0.10 * gajiPokok;
+        let tunjanganKeluarga = (status === "Menikah") ? 0.20 * gajiPokok : 0;
+        let totalGaji = gajiPokok + tunjanganJabatan + bpjs + tunjanganKeluarga;
+
+        // Cetak data
+        document.getElementById("nama").textContent = pegawai;
+        document.getElementById("umur").textContent = umur;
+        document.getElementById("jabatan").textContent = jabatan;
+        document.getElementById("status").textContent = status;
+        document.getElementById("gapok").textContent = formatRupiah(gajiPokok);
+        document.getElementById("tunjanganJabatan").textContent = formatRupiah(tunjanganJabatan);
+        document.getElementById("bpjs").textContent = formatRupiah(bpjs);
+        document.getElementById("tunjanganKeluarga").textContent = formatRupiah(tunjanganKeluarga);
+        document.getElementById("totalGaji").textContent = formatRupiah(totalGaji);
+        document.getElementById("totalFooter").textContent = formatRupiah(totalGaji);
+    </script>
+
+</body>
+</html>
