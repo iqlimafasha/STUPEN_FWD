@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas5 -JS- Membuat Manajemen Produk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        button {
+            padding: 8px 12px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Manajemen Produk</h2>
+    <div class="container">
+        <h3>Tambah Produk</h3>
+        <input type="text" id="namaProduk" placeholder="Nama Produk">
+        <input type="number" id="hargaProduk" placeholder="Harga">
+        <input type="number" id="stokProduk" placeholder="Stok">
+        <button class="btn-add" id="tambahProduk">Tambah</button>
+        
+        <h3>Daftar Produk</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Produk</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tabelProduk"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let daftarProduk = [
+            { nama: "Laptop", harga: 7500000, stok: 10 },
+            { nama: "Smartphone", harga: 5000000, stok: 5 },
+            { nama: "Tablet", harga: 3000000, stok: 7 },
+            { nama: "Headphone", harga: 700000, stok: 15 },
+            { nama: "Smartwatch", harga: 1500000, stok: 8 }
+        ];
+
+        function tampilkanProduk() {
+            const tabel = document.getElementById("tabelProduk");
+            tabel.innerHTML = "";
+            daftarProduk.forEach(({ nama, harga, stok }, index) => {
+                const row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${nama}</td>
+                    <td>Rp ${harga.toLocaleString()}</td>
+                    <td>${stok}</td>
+                    <td><button class="btn-delete" onclick="hapusProduk('${nama}')">Hapus</button></td>
+                </tr>`;
+                tabel.innerHTML += row;
+            });
+        }
+
+        function tambahProduk() {
+            const nama = document.getElementById("namaProduk").value;
+            const harga = parseInt(document.getElementById("hargaProduk").value);
+            const stok = parseInt(document.getElementById("stokProduk").value);
+            
+            if (nama && harga && stok) {
+                daftarProduk = [...daftarProduk, { nama, harga, stok }];
+                tampilkanProduk();
+                document.getElementById("namaProduk").value = "";
+                document.getElementById("hargaProduk").value = "";
+                document.getElementById("stokProduk").value = "";
+            } else {
+                alert("Mohon isi semua kolom!");
+            }
+        }
+
+        function hapusProduk(namaProduk) {
+            daftarProduk = daftarProduk.filter(({ nama }) => nama !== namaProduk);
+            tampilkanProduk();
+        }
+
+        document.getElementById("tambahProduk").addEventListener("click", tambahProduk);
+        tampilkanProduk();
+    </script>
+</body>
+</html>
