@@ -1,4 +1,35 @@
+import { useState } from "react";
+import booksData from "../../../Utils/books";
+
 export default function ProductList() {
+  const [books, setBooks] = useState(booksData);
+  const [newBook, setNewBook] = useState({
+    title: "",
+    author: "",
+    year: "",
+    description: "",
+    image: "",
+  });
+
+  const handleChange = (e) => {
+    setNewBook({ ...newBook, [e.target.name]: e.target.value });
+  };
+
+  const handleAddBook = () => {
+    const { title, author, year, description, image } = newBook;
+    if (!title || !author || !year || !description || !image) {
+      alert("Semua field harus diisi!");
+      return;
+    }
+    const newId = books.length + 1;
+    const bookToAdd = {
+      id: newId,
+      ...newBook,
+    };
+    setBooks([...books, bookToAdd]);
+    setNewBook({ title: "", author: "", year: "", description: "", image: "" });
+  };
+
   return (
     <>
       <section className="py-5 text-center container">
@@ -8,80 +39,94 @@ export default function ProductList() {
             <p className="lead text-body-secondary">
               Temukan koleksi buku terlaris pilihan pembaca—dengan cerita memikat dan kualitas yang tak diragukan, karya para penulis terbaik.
             </p>
-            <p>
-              <a href="#" className="btn btn-primary my-2 m-2">Views</a>
-              <a href="#" className="btn btn-secondary my-2">Other Book</a>
-            </p>
           </div>
         </div>
       </section>
 
+      {/* Form tambah buku */}
+      <div className="container mb-5">
+        <h4 className="mb-3">Tambah Buku Baru</h4>
+        <div className="row g-2">
+          <div className="col-md-2">
+            <input
+              type="text"
+              name="title"
+              value={newBook.title}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Judul"
+            />
+          </div>
+          <div className="col-md-2">
+            <input
+              type="text"
+              name="author"
+              value={newBook.author}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Penulis"
+            />
+          </div>
+          <div className="col-md-1">
+            <input
+              type="number"
+              name="year"
+              value={newBook.year}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Tahun"
+            />
+          </div>
+          <div className="col-md-3">
+            <input
+              type="text"
+              name="description"
+              value={newBook.description}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Deskripsi"
+            />
+          </div>
+          <div className="col-md-3">
+            <input
+              type="text"
+              name="image"
+              value={newBook.image}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="URL Gambar"
+            />
+          </div>
+          <div className="col-md-1 d-grid">
+            <button className="btn btn-primary" onClick={handleAddBook}>
+              Tambah
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Daftar buku */}
       <div className="album py-5 bg-body-tertiary">
         <div className="container">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {[
-              {
-                title: "Filosofi Teras",
-                description: "Panduan membentuk kebiasaan baik yang terbukti berhasil.",
-                img: "https://klasika.kompas.id/wp-content/uploads/2022/09/Filosofi-Teras.jpg"
-              },
-              {
-                title: "The Psychology of Money",
-                description: "Pelajaran penting tentang keuangan dan perilaku manusia.",
-                img: "https://uniathenaprods3.uniathena.com/s3fs-public/2024-03/ThePsychologyofMoney_0.jpg"
-              },
-              {
-                title: "Deep Work",
-                description: "Strategi untuk fokus dan produktivitas tinggi di era digital.",
-                img: "https://i0.wp.com/itsmoreofacomment.com/wp-content/uploads/2021/01/CalNewportDeepWork.jpg?fit=2000%2C1200&ssl=1"
-              },
-              {
-                title: "Sapiens",
-                description: "Sejarah singkat umat manusia dari masa purba hingga kini.",
-                img: "https://cdn-web.ruangguru.com/landing-pages/assets/hs/Dunia%20Kata%20-%20Resensi%20Buku%20Sapiens%20di%20Ujung%20Tanduk%20Karya%20Iqbal%20Aji%20Daryono-03.jpg"
-              },
-              {
-                title: "Seni Bersikap Bodoamat",
-                description: "Seni bersikap bodo amat yang elegan dan logis.",
-                img: "https://blog-static.mamikos.com/wp-content/uploads/2022/01/1.-Sebuah-Seni-Untuk-Bersikap-Bodo-Amat.jpg"
-              },
-              {
-                title: "Ikigai",
-                description: "Rahasia panjang umur dan hidup bahagia dari Jepang.",
-                img: "https://asset.kompas.com/crops/lgxPG1Y2Cw3uqGYKwTsDBBVu73g=/0x0:0x0/780x390/data/photo/buku/619740672a9a6.png"
-              },
-              {
-                title: "Start With Why",
-                description: "Cara menginspirasi orang lain lewat alasan yang kuat.",
-                img: "https://bookiestalk.com/wp-content/uploads/2022/07/Start-With-Why-Summary.jpg"
-              },
-              {
-                title: "Bicara Itu Ada Seninya",
-                description: "Membuka rahasia seni berbicara yang baik",
-                img: "https://asset.kompas.com/crops/RpYAWWL9SWokxcm0gLzIhETt-SA=/0x0:0x0/750x500/data/photo/buku/62a1aa4725925.jpg"
-              },
-              {
-                title: "Thinking, Fast and Slow",
-                description: "Membedah cara kerja dua sistem berpikir manusia.",
-                img: "https://www.americkecentrum.cz/wp-content/uploads/2024/10/Thinking-fast-and-slow.jpg"
-              }
-            ].map((book, i) => (
-              <div className="col" key={i}>
+            {books.map((book) => (
+              <div className="col" key={book.id}>
                 <div className="card shadow-sm h-100">
                   <img
-                    src={book.img}
+                    src={book.image}
                     alt={book.title}
                     className="card-img-top"
                     style={{ height: "225px", objectFit: "cover" }}
                   />
                   <div className="card-body d-flex flex-column">
+                    <h5 className="card-title">{book.title}</h5>
+                    <p className="card-text text-muted">
+                      {book.author} - {book.year}
+                    </p>
                     <p className="card-text">{book.description}</p>
                     <div className="d-flex justify-content-between align-items-center mt-auto">
-                      <div className="btn-group">
-                        <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
-                      </div>
-                      <small className="text-body-secondary">9 mins</small>
+                      <button className="btn btn-sm btn-outline-primary">Lihat Buku</button>
+                      <small className="text-muted">ID: {book.id}</small>
                     </div>
                   </div>
                 </div>
